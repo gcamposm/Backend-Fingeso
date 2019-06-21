@@ -1,41 +1,42 @@
 package fingeso.backend.controller;
 
+import fingeso.backend.model.Proposals;
+import fingeso.backend.repositories.ProposalsRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import fingeso.backend.ProposalRepository;
-import fingeso.backend.model.Proposal;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/proposal")
-public class ProposalController {
+@RequestMapping("/proposals")
+public class ProposalsController {
     @Autowired
-    private ProposalRepository repository;
+    private ProposalsRepository repository;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Proposal> getAllProposal() {
+    public List<Proposals> getAllProposals() {
         return repository.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Proposal getProposalById(@PathVariable("id") ObjectId id) {
+    public Proposals getProposalById(@PathVariable("id") ObjectId id) {
         return repository.findBy_id(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void modifyProposalById(@PathVariable("id") ObjectId id, @Valid @RequestBody Proposal proposal) {
-        proposal.set_id(id);
-        repository.save(proposal);
+    public void modifyProposalById(@PathVariable("id") ObjectId id, @Valid @RequestBody Proposals proposals) {
+        proposals.set_id(id);
+        repository.save(proposals);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Proposal createProposal(@Valid @RequestBody Proposal proposal) {
-        proposal.set_id(ObjectId.get());
-        repository.save(proposal);
-        return proposal;
+    public Proposals createProposal(@Valid @RequestBody Proposals proposals) {
+        proposals.set_id(ObjectId.get());
+        repository.save(proposals);
+        return proposals;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
