@@ -1,6 +1,6 @@
 package fingeso.backend.controller;
 
-import fingeso.backend.model.Proposals;
+import fingeso.backend.models.Proposals;
 import fingeso.backend.repositories.ProposalsRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;

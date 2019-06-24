@@ -1,6 +1,6 @@
 package fingeso.backend.repositories;
 
-import fingeso.backend.model.Proposals;
+import fingeso.backend.models.Proposals;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

@@ -1,4 +1,4 @@
-package fingeso.backend.model;
+package fingeso.backend.models;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
