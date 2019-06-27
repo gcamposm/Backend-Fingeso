@@ -1,41 +1,37 @@
 package fingeso.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
-import java.util.Date;
 
-@Entity
-@Data
-@NoArgsConstructor
-@Table(name = "user_nimbolu")
+@Document(collection = "users")
 public class User {
-  // ATTRIBUTES
+
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @Column(name = "id")
-  private Integer id;
-
-  @NonNull
-  @Column(name = "first_name")
+  public ObjectId _id;
   private String firstName;
-
-  @NonNull
-  @Column(name = "last_name")
   private String lastName;
 
-  @NonNull
-  @Column(name = "birth_date") @Temporal(TemporalType.DATE)
-  private Date birthDate;
+  // Constructors
+  public User() {}
 
-  // RELATIONS
+  public User(ObjectId _id, String firstName, String lastName) {
+    this._id = _id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
-  // user -> sale
-  //@OneToMany(mappedBy = "userNimbolu", cascade = CascadeType.ALL)
-  //@JsonIgnore
-  //private List<Sale> saleList;
+  // ObjectId needs to be converted to string
+  public String get_id() { return _id.toHexString(); }
+  public void set_id(ObjectId _id) { this._id = _id; }
+
+  public String getFirstName() { return firstName; }
+  public void setFirstName(String firstName) { this.firstName = firstName; }
+
+  public String getLastName() { return lastName; }
+  public void setLastName(String name) { this.lastName = lastName; }
+
 }
+
 
