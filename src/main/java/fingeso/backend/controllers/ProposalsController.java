@@ -1,4 +1,4 @@
-package fingeso.backend.controller;
+package fingeso.backend.controllers;
 
 import fingeso.backend.models.Proposals;
 import fingeso.backend.repositories.ProposalsRepository;
