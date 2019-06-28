@@ -1,37 +1,21 @@
 package fingeso.backend.models;
 
+import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Document(collection = "users")
+@Data
+@Document(collection = "user")
 public class User {
 
   @Id
-  public ObjectId _id;
+  private ObjectId _id;
   private String firstName;
   private String lastName;
-
-  // Constructors
-  public User() {}
-
-  public User(ObjectId _id, String firstName, String lastName) {
-    this._id = _id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-
-  // ObjectId needs to be converted to string
-  public String get_id() { return _id.toHexString(); }
-  public void set_id(ObjectId _id) { this._id = _id; }
-
-  public String getFirstName() { return firstName; }
-  public void setFirstName(String firstName) { this.firstName = firstName; }
-
-  public String getLastName() { return lastName; }
-  public void setLastName(String name) { this.lastName = lastName; }
-
+  private List<Proposal> proposals;
 }
 
 

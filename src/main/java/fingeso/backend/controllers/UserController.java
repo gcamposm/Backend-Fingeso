@@ -16,30 +16,30 @@ public class UserController {
   @Autowired
   private UserRepository repository;
 
-  @RequestMapping(value = "/", method = RequestMethod.GET)
+  @GetMapping("/")
   public List<User> getAllUsers() {
     return repository.findAll();
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  @GetMapping("/{id}")
   public User getUserById(@PathVariable("id") ObjectId id) {
     return repository.findBy_id(id);
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+  @PutMapping("/{id}")
   public void modifyUserById(@PathVariable("id") ObjectId id, @Valid @RequestBody User user) {
     user.set_id(id);
     repository.save(user);
   }
 
-  @RequestMapping(value = "/", method = RequestMethod.POST)
+  @PostMapping("/")
   public User createUser(@Valid @RequestBody User user) {
     user.set_id(ObjectId.get());
     repository.save(user);
     return user;
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  @DeleteMapping("/{id}")
   public void deleteUser(@PathVariable ObjectId id) {
     repository.delete(repository.findBy_id(id));
   }
