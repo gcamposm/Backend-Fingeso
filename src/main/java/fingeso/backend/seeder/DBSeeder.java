@@ -24,21 +24,6 @@ public class DBSeeder implements CommandLineRunner {
     @Autowired
     private ClientRepository clientRepository;
 
-    public void seedProposals(){
-        Random random = new Random();
-        Faker faker = new Faker();
-        for(int i = 0; i< 30; i++){
-            Proposal proposal = new Proposal();
-            List<Client> clientList = clientRepository.findAll();
-            List<User> userList = userRepository.findAll();
-            proposal.setClient(clientList.get(random.nextInt(clientList.size() - 1)));
-            proposal.setCreated(faker.date().birthday());
-            proposal.setCreator(userList.get(random.nextInt(userList.size() - 1)));
-            proposal.setDescription(faker.expression(""));
-            proposal.setName(faker.name().firstName());
-            proposalRepository.save(proposal);
-        }
-    }
     public void seedUsers(){
         Faker faker = new Faker();
         for(int i = 0; i< 30; i++){
@@ -55,6 +40,24 @@ public class DBSeeder implements CommandLineRunner {
             client.setName(faker.name().name());
             client.setCompany(faker.company().name());
             clientRepository.save(client);
+        }
+    }
+
+    public void seedProposals() {
+        Random random = new Random();
+        Faker faker = new Faker();
+        for (int i = 0; i < 30; i++) {
+            Proposal proposal = new Proposal();
+            List<User> userList = userRepository.findAll();
+            List<Client> clientList = clientRepository.findAll();
+            Client client = clientList.get(random.nextInt(clientList.size() - 1));
+            proposal.setClient(client);
+            proposal.setCreated(faker.date().birthday());
+            proposal.setCreator(userList.get(random.nextInt(userList.size() - 1)));
+            proposal.setDescription(faker.expression(""));
+            proposal.setName(faker.name().firstName());
+            proposalRepository.save(proposal);
+            //client.addProposals(client, proposal);
         }
     }
 
