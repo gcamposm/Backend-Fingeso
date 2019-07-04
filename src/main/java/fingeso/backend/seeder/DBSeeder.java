@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,6 +34,30 @@ public class DBSeeder implements CommandLineRunner {
             userRepository.save(user);
         }
     }
+
+    /*public void seedDatabase(){
+        Faker faker = new Faker();
+        for(int i = 0; i< 30; i++){
+            User user = new User();
+            user.setFirstName(faker.name().firstName());
+            user.setLastName(faker.name().lastName());
+            Client client = new Client();
+            client.setName(faker.name().name());
+            client.setCompany(faker.company().name());
+                Proposal proposal = new Proposal();
+                proposal.setClient(client);
+                proposal.setCreated(faker.date().birthday());
+                proposal.setCreator(user);
+                proposal.setDescription(faker.expression(""));
+                proposal.setName(faker.name().firstName());
+                List<Proposal> proposalList = new ArrayList<>();
+                proposalList.add(proposal);
+                client.setProposals(proposalList);
+                proposalRepository.save(proposal);
+            userRepository.save(user);
+            clientRepository.save(client);
+        }
+    }*/
     public void seedClient(){
         Faker faker = new Faker();
         for(int i = 0; i< 30; i++){
@@ -51,13 +76,23 @@ public class DBSeeder implements CommandLineRunner {
             List<User> userList = userRepository.findAll();
             List<Client> clientList = clientRepository.findAll();
             Client client = clientList.get(random.nextInt(clientList.size() - 1));
+            //Client clientReturned = clientRepository.save(client);
             proposal.setClient(client);
             proposal.setCreated(faker.date().birthday());
             proposal.setCreator(userList.get(random.nextInt(userList.size() - 1)));
             proposal.setDescription(faker.expression(""));
             proposal.setName(faker.name().firstName());
             proposalRepository.save(proposal);
-            //client.addProposals(client, proposal);
+            //Proposal proposal1 = proposalRepository.save(proposal);
+            //System.out.println(proposal);
+            List<Proposal> test = client.getProposals();
+            test.add(proposal);
+            //System.out.println("largo"+test.size());
+            //client.setProposals(test);
+            //System.out.println("okey:");
+            //client.addProposals(proposal1);
+            //System.out.println("CLIENT: "+client);
+            //clientRepository.save(client);
         }
     }
 
@@ -66,5 +101,6 @@ public class DBSeeder implements CommandLineRunner {
         seedUsers();
         seedClient();
         seedProposals();
+        //seedDatabase();
     }
 }

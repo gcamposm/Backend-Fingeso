@@ -5,6 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,6 +15,7 @@ public class Client {
     private ObjectId _id;
     private String name;
     private String company;
+    private List<Proposal> proposals = new ArrayList<>();
 
     public void set_id(ObjectId _id) {
         this._id = _id;
@@ -27,9 +29,7 @@ public class Client {
         this.company = company;
     }
 
-    public void setProposals(List<Proposal> proposals) {
-        this.proposals = proposals;
-    }
+    public void setProposals(List<Proposal> proposals) {this.proposals = proposals; }
 
     public ObjectId get_id() {
         return _id;
@@ -47,12 +47,13 @@ public class Client {
         return proposals;
     }
 
-    private List<Proposal> proposals;
-
-    public Client addProposals (Client client, Proposal proposal){
-        List<Proposal> proposals = client.getProposals();
-        proposals.add(proposal);
-        client.setProposals(proposals);
-        return client;
+    public Client addProposals(Proposal proposal){
+        System.out.println("PROPOSAL: "+ proposal);
+        List<Proposal> proposalList = this.getProposals();
+        System.out.println("proposals: "+ proposalList);
+        proposalList.add(proposal);
+        System.out.println("proposals: "+ proposalList);
+        this.setProposals(proposalList);
+        return this;
     }
 }
