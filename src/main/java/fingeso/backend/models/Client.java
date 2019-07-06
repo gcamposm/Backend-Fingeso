@@ -15,7 +15,7 @@ public class Client {
     private ObjectId _id;
     private String name;
     private String company;
-    private List<Proposal> proposals = new ArrayList<>();
+    private List<Proposal> proposals;
 
     public void set_id(ObjectId _id) {
         this._id = _id;
