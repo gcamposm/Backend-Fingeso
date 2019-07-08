@@ -76,6 +76,7 @@ public class DBSeeder implements CommandLineRunner {
             user.setProposals(userProposals);
             clientDao.save(client);
             userDao.save(user);
+            System.out.println(proposal);
         }
     }
 
