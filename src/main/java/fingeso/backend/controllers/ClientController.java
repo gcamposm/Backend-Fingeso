@@ -1,7 +1,7 @@
 package fingeso.backend.controllers;
 
 import fingeso.backend.models.Client;
-import fingeso.backend.repositories.ClientRepository;
+import fingeso.backend.dao.ClientDao;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/clients")
 public class ClientController {
     @Autowired
-    private ClientRepository repository;
+    private ClientDao repository;
 
     @GetMapping("/")
     public List<Client> getAllClients() {

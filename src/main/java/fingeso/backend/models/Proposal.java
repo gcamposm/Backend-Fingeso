@@ -15,54 +15,54 @@ public class Proposal {
     private String name;
     private String description;
     private Date created;
-    private Client client;
-    private User creator;
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
+    private ObjectId clientId;
+    private ObjectId userId;
 
     public ObjectId get_id() {
         return _id;
+    }
+
+    public void set_id(ObjectId _id) {
+        this._id = _id;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreated() {
         return created;
     }
 
-    public Client getClient() {
-        return client;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public User getCreator() {
-        return creator;
+    public ObjectId getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(ObjectId clientId) {
+        this.clientId = clientId;
+    }
+
+    public ObjectId getUserId() {
+        return userId;
+    }
+
+    public void setUserId(ObjectId userId) {
+        this.userId = userId;
     }
 }

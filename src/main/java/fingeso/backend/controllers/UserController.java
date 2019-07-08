@@ -1,7 +1,7 @@
 package fingeso.backend.controllers;
 
 import fingeso.backend.models.User;
-import fingeso.backend.repositories.UserRepository;
+import fingeso.backend.dao.UserDao;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
   @Autowired
-  private UserRepository repository;
+  private UserDao repository;
 
   @GetMapping("/")
   public List<User> getAllUsers() {
