@@ -1,7 +1,7 @@
 package fingeso.backend.controllers;
 
 import fingeso.backend.models.Proposal;
-import fingeso.backend.repositories.ProposalRepository;
+import fingeso.backend.dao.ProposalDao;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/proposals")
 public class ProposalController {
     @Autowired
-    private ProposalRepository repository;
+    private ProposalDao repository;
 
     @GetMapping("/")
     public List<Proposal> getAllProposals() {
