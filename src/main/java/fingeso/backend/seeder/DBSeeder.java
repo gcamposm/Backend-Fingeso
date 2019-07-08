@@ -1,12 +1,16 @@
 package fingeso.backend.seeder;
 
 import com.github.javafaker.Faker;
+import com.mongodb.MongoClient;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import fingeso.backend.models.Client;
 import fingeso.backend.models.Proposal;
 import fingeso.backend.models.User;
-import fingeso.backend.repositories.ClientRepository;
-import fingeso.backend.repositories.ProposalRepository;
-import fingeso.backend.repositories.UserRepository;
+import fingeso.backend.dao.ClientDao;
+import fingeso.backend.dao.ProposalDao;
+import fingeso.backend.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,11 +23,11 @@ import java.util.Random;
 @Component
 public class DBSeeder implements CommandLineRunner {
     @Autowired
-    private ProposalRepository proposalRepository;
+    private ProposalDao proposalDao;
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientDao clientDao;
 
     public void seedUsers(){
         Faker faker = new Faker();
@@ -33,7 +37,7 @@ public class DBSeeder implements CommandLineRunner {
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
             user.setProposals(proposalList);
-            userRepository.save(user);
+            userDao.save(user);
         }
     }
 
@@ -45,7 +49,7 @@ public class DBSeeder implements CommandLineRunner {
             client.setName(faker.name().name());
             client.setCompany(faker.company().name());
             client.setProposals(proposalList);
-            clientRepository.save(client);
+            clientDao.save(client);
         }
     }
 
@@ -54,8 +58,8 @@ public class DBSeeder implements CommandLineRunner {
         Faker faker = new Faker();
         for (int i = 0; i < 30; i++) {
             Proposal proposal = new Proposal();
-            List<User> userList = userRepository.findAll();
-            List<Client> clientList = clientRepository.findAll();
+            List<User> userList = userDao.findAll();
+            List<Client> clientList = clientDao.findAll();
             Client client = clientList.get(random.nextInt(clientList.size() - 1));
             User user = userList.get(random.nextInt(userList.size() - 1));
             proposal.setClientId(client.get_id());
@@ -63,20 +67,28 @@ public class DBSeeder implements CommandLineRunner {
             proposal.setUserId(user.get_id());
             proposal.setDescription(faker.expression(""));
             proposal.setName(faker.name().firstName());
-            proposalRepository.save(proposal);
+            proposalDao.save(proposal);
             List<Proposal> clientProposals = client.getProposals();
             List<Proposal> userProposals = user.getProposals();
             clientProposals.add(proposal);
             userProposals.add(proposal);
             client.setProposals(clientProposals);
             user.setProposals(userProposals);
-            clientRepository.save(client);
-            userRepository.save(user);
+            clientDao.save(client);
+            userDao.save(user);
         }
     }
 
     @Override
     public void run(String... args) throws Exception {
+        MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017));
+        MongoDatabase db = mongoClient.getDatabase("Symbiose");
+        MongoCollection proposalCollection = db.getCollection("proposals");
+        MongoCollection clientCollection = db.getCollection("clients");
+        MongoCollection userCollection = db.getCollection("users");
+        proposalCollection.drop();
+        clientCollection.drop();
+        userCollection.drop();
         seedUsers();
         seedClient();
         seedProposals();
