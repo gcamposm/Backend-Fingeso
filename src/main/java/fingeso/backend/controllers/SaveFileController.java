@@ -1,5 +1,6 @@
 package fingeso.backend.controllers;
 
+import fingeso.backend.dao.ProposalDao;
 import fingeso.backend.models.Proposal;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.activation.FileDataSource;
 import javax.servlet.ServletContext;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,16 +19,27 @@ import java.util.Scanner;
 public class SaveFileController {
     @Autowired
     ServletContext context;
+    @Autowired
+    private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposal") String proposal) throws IOException
+    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposal") String proposalId) throws IOException
     {
-        System.out.println(proposal);
+        //System.out.println(proposal);
+        String nameFile = file.getOriginalFilename();
         String absoluteFilePath = "src/main/resources/static/";
-        File convertFile = new File(absoluteFilePath + file.getOriginalFilename());
+        File convertFile = new File(absoluteFilePath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
+        //System.out.println("buscando");
+        Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
+        //System.out.println(proposal);
+        List<String> files = proposal.getFiles();
+        files.add(nameFile);
+        proposal.setFiles(files);
+        proposalDao.save(proposal);
+        //System.out.println("files: "+proposal.getFiles());
         return new ResponseEntity<>("file is uploaded successfully", HttpStatus.OK);
     }
 }

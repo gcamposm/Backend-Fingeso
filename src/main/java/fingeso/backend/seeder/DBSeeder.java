@@ -67,6 +67,10 @@ public class DBSeeder implements CommandLineRunner {
             proposal.setUserId(user.get_id());
             proposal.setDescription(faker.expression(""));
             proposal.setName(faker.name().firstName());
+            proposal.setFiles(new ArrayList<>());
+            proposalDao.save(proposal);
+            proposal.setIdStr(proposal.get_id().toHexString());
+            //System.out.println(proposal.getIdStr());
             proposalDao.save(proposal);
             List<Proposal> clientProposals = client.getProposals();
             List<Proposal> userProposals = user.getProposals();
@@ -76,7 +80,7 @@ public class DBSeeder implements CommandLineRunner {
             user.setProposals(userProposals);
             clientDao.save(client);
             userDao.save(user);
-            System.out.println(proposal);
+            //System.out.println(proposal);
         }
     }
 

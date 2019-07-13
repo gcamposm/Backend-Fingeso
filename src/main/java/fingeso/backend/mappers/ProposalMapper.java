@@ -12,11 +12,13 @@ public class ProposalMapper {
     public Proposal mapToModel(ProposalDto proposalDto){
 
         Proposal proposal = new Proposal();
+        proposal.setIdStr(proposalDto.getIdStr());
         proposal.setName(proposalDto.getName());
         proposal.setDescription(proposalDto.getDescription());
         proposal.setCreated(proposalDto.getCreated());
         proposal.setUserId(proposalDto.getUserId());
         proposal.setClientId(proposalDto.getClientId());
+        proposal.setFiles(proposalDto.getFiles());
         return proposal;
     }
 
@@ -34,11 +36,13 @@ public class ProposalMapper {
     public ProposalDto mapToDto (Proposal proposal){
 
         ProposalDto proposalDto = new ProposalDto();
+        proposalDto.setIdStr(proposal.getIdStr());
         proposalDto.setName(proposal.getName());
         proposalDto.setDescription(proposal.getDescription());
         proposalDto.setCreated(proposal.getCreated());
         proposalDto.setClientId(proposal.getClientId());
         proposalDto.setUserId(proposal.getClientId());
+        proposalDto.setFiles(proposal.getFiles());
         return proposalDto;
     }
 }
