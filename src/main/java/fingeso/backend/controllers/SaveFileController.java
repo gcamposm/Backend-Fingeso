@@ -1,5 +1,7 @@
 package fingeso.backend.controllers;
 
+import fingeso.backend.models.Proposal;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,24 +25,14 @@ public class SaveFileController {
     ServletContext context;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) throws IOException
+    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposal") String proposal) throws IOException
     {
-        String probarPdf = file.getOriginalFilename();
-        if(isPDF(probarPdf)){
-            String absoluteFilePath = "src/main/resources/static/";
-            File convertFile = new File(absoluteFilePath + name + ".pdf");
-            FileOutputStream fout = new FileOutputStream(convertFile);
-            fout.write(file.getBytes());
-            fout.close();
-            return new ResponseEntity<>("file is uploaded successfully", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>("file isn't pdf", HttpStatus.NOT_ACCEPTABLE);
-        }
-    }
-    public boolean isPDF(String fileName) {
-        String[] words = fileName.split("\\.");
-        String extension = words[1];
-        return extension.equalsIgnoreCase("pdf");
+        System.out.println(proposal);
+        String absoluteFilePath = "src/main/resources/static/";
+        File convertFile = new File(absoluteFilePath + file.getOriginalFilename());
+        FileOutputStream fout = new FileOutputStream(convertFile);
+        fout.write(file.getBytes());
+        fout.close();
+        return new ResponseEntity<>("file is uploaded successfully", HttpStatus.OK);
     }
 }

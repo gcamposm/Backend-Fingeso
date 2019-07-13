@@ -87,12 +87,11 @@ public class DBSeeder implements CommandLineRunner {
         MongoCollection proposalCollection = db.getCollection("proposals");
         MongoCollection clientCollection = db.getCollection("clients");
         MongoCollection userCollection = db.getCollection("users");
-        proposalCollection.drop();
-        clientCollection.drop();
-        userCollection.drop();
-        seedUsers();
-        seedClient();
-        seedProposals();
-        //seedDatabase();
+        //proposalCollection.drop();
+        //clientCollection.drop();
+        //userCollection.drop();
+        //seedUsers();
+        //seedClient();
+        //seedProposals();
     }
 }
