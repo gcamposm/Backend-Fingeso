@@ -23,23 +23,19 @@ public class SaveFileController {
     private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposal") String proposalId) throws IOException
+    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
-        //System.out.println(proposal);
         String nameFile = file.getOriginalFilename();
         String absoluteFilePath = "src/main/resources/static/";
         File convertFile = new File(absoluteFilePath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
-        //System.out.println("buscando");
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
-        //System.out.println(proposal);
         List<String> files = proposal.getFiles();
         files.add(nameFile);
         proposal.setFiles(files);
         proposalDao.save(proposal);
-        //System.out.println("files: "+proposal.getFiles());
         return new ResponseEntity<>("file is uploaded successfully", HttpStatus.OK);
     }
 }

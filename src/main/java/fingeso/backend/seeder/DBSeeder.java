@@ -65,12 +65,11 @@ public class DBSeeder implements CommandLineRunner {
             proposal.setClientId(client.get_id());
             proposal.setCreated(faker.date().birthday());
             proposal.setUserId(user.get_id());
-            proposal.setDescription(faker.expression(""));
+            proposal.setDescription(faker.expression("descripcion"));
             proposal.setName(faker.name().firstName());
             proposal.setFiles(new ArrayList<>());
             proposalDao.save(proposal);
             proposal.setIdStr(proposal.get_id().toHexString());
-            //System.out.println(proposal.getIdStr());
             proposalDao.save(proposal);
             List<Proposal> clientProposals = client.getProposals();
             List<Proposal> userProposals = user.getProposals();
@@ -80,7 +79,6 @@ public class DBSeeder implements CommandLineRunner {
             user.setProposals(userProposals);
             clientDao.save(client);
             userDao.save(user);
-            //System.out.println(proposal);
         }
     }
 
@@ -91,11 +89,11 @@ public class DBSeeder implements CommandLineRunner {
         MongoCollection proposalCollection = db.getCollection("proposals");
         MongoCollection clientCollection = db.getCollection("clients");
         MongoCollection userCollection = db.getCollection("users");
-        //proposalCollection.drop();
         //clientCollection.drop();
         //userCollection.drop();
+        //proposalCollection.drop();
+        //seedProposals();
         //seedUsers();
         //seedClient();
-        //seedProposals();
     }
 }

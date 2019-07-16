@@ -11,5 +11,6 @@ public class ClientDto {
     private ObjectId _id;
     private String name;
     private String company;
+    private Integer score;
     private List<Proposal> proposals;
 }

@@ -1,5 +1,6 @@
 package fingeso.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,8 @@ public class Client {
     private ObjectId _id;
     private String name;
     private String company;
+    private Integer score;
+    @JsonIgnore
     private List<Proposal> proposals;
 
     public void set_id(ObjectId _id) {
@@ -45,6 +48,14 @@ public class Client {
 
     public List<Proposal> getProposals() {
         return proposals;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public Client addProposals(Proposal proposal){

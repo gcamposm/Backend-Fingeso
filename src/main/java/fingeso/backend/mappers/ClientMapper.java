@@ -15,6 +15,7 @@ public class ClientMapper {
         client.setName(clientDto.getName());
         client.setCompany(clientDto.getCompany());
         client.setProposals(clientDto.getProposals());
+        client.setScore(clientDto.getScore());
         return client;
     }
 
@@ -35,6 +36,7 @@ public class ClientMapper {
         clientDto.setName(client.getName());
         clientDto.setCompany(client.getCompany());
         clientDto.setProposals(client.getProposals());
+        clientDto.setScore(client.getScore());
         return clientDto;
     }
 }

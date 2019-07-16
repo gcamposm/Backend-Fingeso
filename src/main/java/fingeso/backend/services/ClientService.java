@@ -37,6 +37,7 @@ public class ClientService {
             clientFinded.setName(clientDto.getName());
             clientFinded.setCompany(clientDto.getCompany());
             clientFinded.setProposals(clientDto.getProposals());
+            clientFinded.setScore(clientDto.getScore());
             clientDao.save(clientFinded);
 
         }

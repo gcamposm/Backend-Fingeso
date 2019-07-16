@@ -7,7 +7,13 @@ import fingeso.backend.models.Proposal;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ProposalService {
@@ -49,7 +55,20 @@ public class ProposalService {
 
     }
 
-    public ProposalDto createProposal(ProposalDto proposalDto){
-        return proposalMapper.mapToDto(proposalDao.save(proposalMapper.mapToModel(proposalDto)));
+    public Proposal createProposal(){
+        Random random = new Random();
+        List<Proposal> proposalList = proposalDao.findAll();
+        Proposal proposal = proposalList.get(random.nextInt(proposalList.size() - 1));
+        Date now = new Date();
+        ObjectId id = ObjectId.get();
+        proposal.set_id(id);
+        proposal.setIdStr(id.toHexString());
+        proposal.setDescription("");
+        proposal.setName("");
+        proposal.setFiles(new ArrayList<>());
+        proposal.setUserId(null);
+        proposal.setClientId(null);
+        proposal.setCreated(now);
+        return proposalDao.save(proposal);
     }
 }
