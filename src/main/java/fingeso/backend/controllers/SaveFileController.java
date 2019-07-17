@@ -21,19 +21,17 @@ public class SaveFileController {
     @Autowired
     private ProposalDao proposalDao;
 
-    private Integer index = 0;
-
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Proposal uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
         String absoluteFilePath = "../Symbiose-Front/public/static/";
-        String nameFile = proposalId+ "_" + index.toString() + ".pdf";
-        index = index + 1;
+        Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
+        Integer numberFile = proposal.getFiles().size();
+        String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
         File convertFile = new File(absoluteFilePath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
-        Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         List<String> files = proposal.getFiles();
         files.add(nameFile);
         proposal.setFiles(files);
