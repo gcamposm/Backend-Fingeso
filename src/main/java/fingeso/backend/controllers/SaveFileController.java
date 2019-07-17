@@ -29,11 +29,12 @@ public class SaveFileController {
         //System.out.println(serverPath);
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
-        String absoluteFilePath = "../../../../../var/www/Symbiose-Front/static/";
+        String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
+        String serverPath = context.getRealPath(absoluteFilePath);
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
-        File convertFile = new File(absoluteFilePath + nameFile);
+        File convertFile = new File(serverPath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
