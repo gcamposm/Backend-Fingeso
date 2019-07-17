@@ -29,7 +29,7 @@ public class SaveFileController {
         //System.out.println(serverPath);
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
-        String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
+        String absoluteFilePath = "../../../../../var/www/Symbiose-Front/static/";
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
