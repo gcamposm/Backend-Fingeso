@@ -22,7 +22,7 @@ public class SaveFileController {
     private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Proposal uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
         //String relativeWebPath = "WEB-INF/classes/static";
         //String serverPath = context.getRealPath(relativeWebPath);
@@ -41,7 +41,8 @@ public class SaveFileController {
         List<String> files = proposal.getFiles();
         files.add(nameFile);
         proposal.setFiles(files);
-        return proposalDao.save(proposal);
+        //return proposalDao.save(proposal);
+        return serverPath;
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
