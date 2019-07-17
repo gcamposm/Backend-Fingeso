@@ -24,7 +24,12 @@ public class SaveFileController {
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Proposal uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
-        String absoluteFilePath = "../Symbiose-Front/public/static/";
+        //String relativeWebPath = "WEB-INF/classes/static";
+        //String serverPath = context.getRealPath(relativeWebPath);
+        //System.out.println(serverPath);
+        //String absoluteFilePath = "../Symbiose-Front/public/static/";
+        //String absoluteFilePath = "src/main/resources/static/";
+        String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
