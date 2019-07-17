@@ -11,5 +11,6 @@ public class UserDto {
     private ObjectId _id;
     private String firstName;
     private String lastName;
+    private String password;
     private List<Proposal> proposals;
 }

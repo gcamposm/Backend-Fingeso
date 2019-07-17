@@ -1,19 +1,16 @@
 package fingeso.backend.controllers;
 
+import fingeso.backend.dao.ProposalDao;
+import fingeso.backend.models.Proposal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.activation.FileDataSource;
 import javax.servlet.ServletContext;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -21,26 +18,30 @@ import java.util.Scanner;
 public class SaveFileController {
     @Autowired
     ServletContext context;
+    @Autowired
+    private ProposalDao proposalDao;
+
+    private Integer index = 0;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) throws IOException
+    public Proposal uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
-        String probarPdf = file.getOriginalFilename();
-        if(isPDF(probarPdf)){
-            String absoluteFilePath = "src/main/resources/static/";
-            File convertFile = new File(absoluteFilePath + name + ".pdf");
-            FileOutputStream fout = new FileOutputStream(convertFile);
-            fout.write(file.getBytes());
-            fout.close();
-            return new ResponseEntity<>("file is uploaded successfully", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>("file isn't pdf", HttpStatus.NOT_ACCEPTABLE);
-        }
+        String absoluteFilePath = "../Symbiose-Front/public/static/";
+        String nameFile = proposalId+ "_" + index.toString() + ".pdf";
+        File convertFile = new File(absoluteFilePath + nameFile);
+        FileOutputStream fout = new FileOutputStream(convertFile);
+        fout.write(file.getBytes());
+        fout.close();
+        Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
+        List<String> files = proposal.getFiles();
+        files.add(nameFile);
+        proposal.setFiles(files);
+        return proposalDao.save(proposal);
     }
-    public boolean isPDF(String fileName) {
-        String[] words = fileName.split("\\.");
-        String extension = words[1];
-        return extension.equalsIgnoreCase("pdf");
+    @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
+    {
+        String absoluteFilePath = "/static/" + fileName;
+        return ResponseEntity.ok(absoluteFilePath);
     }
 }

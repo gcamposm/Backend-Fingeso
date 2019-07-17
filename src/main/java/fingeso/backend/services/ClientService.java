@@ -34,9 +34,11 @@ public class ClientService {
     public void updateClient(ClientDto clientDto, ObjectId id){
         if(clientDao.existsBy_id(id)){
             Client clientFinded = clientDao.findBy_id(id);
+            clientFinded.setIdStr(clientDto.getIdStr());
             clientFinded.setName(clientDto.getName());
             clientFinded.setCompany(clientDto.getCompany());
             clientFinded.setProposals(clientDto.getProposals());
+            clientFinded.setScore(clientDto.getScore());
             clientDao.save(clientFinded);
 
         }

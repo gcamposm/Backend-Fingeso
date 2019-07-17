@@ -36,6 +36,7 @@ public class DBSeeder implements CommandLineRunner {
             List<Proposal> proposalList = new ArrayList<>();
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
+            user.setPassword("secret");
             user.setProposals(proposalList);
             userDao.save(user);
         }
@@ -48,7 +49,10 @@ public class DBSeeder implements CommandLineRunner {
             List<Proposal> proposalList = new ArrayList<>();
             client.setName(faker.name().name());
             client.setCompany(faker.company().name());
+            client.setScore(5);
             client.setProposals(proposalList);
+            clientDao.save(client);
+            client.setIdStr(client.get_id().toHexString());
             clientDao.save(client);
         }
     }
@@ -63,10 +67,14 @@ public class DBSeeder implements CommandLineRunner {
             Client client = clientList.get(random.nextInt(clientList.size() - 1));
             User user = userList.get(random.nextInt(userList.size() - 1));
             proposal.setClientId(client.get_id());
+            proposal.setClientIdStr(client.get_id().toHexString());
             proposal.setCreated(faker.date().birthday());
             proposal.setUserId(user.get_id());
-            proposal.setDescription(faker.expression(""));
+            proposal.setDescription(faker.expression("descripcion"));
             proposal.setName(faker.name().firstName());
+            proposal.setFiles(new ArrayList<>());
+            proposalDao.save(proposal);
+            proposal.setIdStr(proposal.get_id().toHexString());
             proposalDao.save(proposal);
             List<Proposal> clientProposals = client.getProposals();
             List<Proposal> userProposals = user.getProposals();
@@ -76,7 +84,6 @@ public class DBSeeder implements CommandLineRunner {
             user.setProposals(userProposals);
             clientDao.save(client);
             userDao.save(user);
-            System.out.println(proposal);
         }
     }
 
@@ -87,12 +94,11 @@ public class DBSeeder implements CommandLineRunner {
         MongoCollection proposalCollection = db.getCollection("proposals");
         MongoCollection clientCollection = db.getCollection("clients");
         MongoCollection userCollection = db.getCollection("users");
-        proposalCollection.drop();
-        clientCollection.drop();
-        userCollection.drop();
-        seedUsers();
-        seedClient();
-        seedProposals();
-        //seedDatabase();
+        //clientCollection.drop();
+        //userCollection.drop();
+        //proposalCollection.drop();
+        //seedUsers();
+        //seedClient();
+        //seedProposals();
     }
 }

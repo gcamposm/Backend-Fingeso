@@ -12,9 +12,11 @@ public class ClientMapper {
     public Client mapToModel(ClientDto clientDto){
 
         Client client = new Client();
+        client.setIdStr(clientDto.getIdStr());
         client.setName(clientDto.getName());
         client.setCompany(clientDto.getCompany());
         client.setProposals(clientDto.getProposals());
+        client.setScore(clientDto.getScore());
         return client;
     }
 
@@ -32,9 +34,11 @@ public class ClientMapper {
     public ClientDto mapToDto (Client client){
 
         ClientDto clientDto = new ClientDto();
+        clientDto.setIdStr(client.getIdStr());
         clientDto.setName(client.getName());
         clientDto.setCompany(client.getCompany());
         clientDto.setProposals(client.getProposals());
+        clientDto.setScore(client.getScore());
         return clientDto;
     }
 }
