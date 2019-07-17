@@ -28,6 +28,7 @@ public class SaveFileController {
     {
         String absoluteFilePath = "../Symbiose-Front/public/static/";
         String nameFile = proposalId+ "_" + index.toString() + ".pdf";
+        index = index + 1;
         File convertFile = new File(absoluteFilePath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());

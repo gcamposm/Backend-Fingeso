@@ -73,6 +73,8 @@ public class DBSeeder implements CommandLineRunner {
             proposal.setDescription(faker.expression("descripcion"));
             proposal.setName(faker.name().firstName());
             proposal.setFiles(new ArrayList<>());
+            proposal.setTeamSize(5);
+            proposal.setBudget(100000);
             proposalDao.save(proposal);
             proposal.setIdStr(proposal.get_id().toHexString());
             proposalDao.save(proposal);
@@ -94,11 +96,11 @@ public class DBSeeder implements CommandLineRunner {
         MongoCollection proposalCollection = db.getCollection("proposals");
         MongoCollection clientCollection = db.getCollection("clients");
         MongoCollection userCollection = db.getCollection("users");
-        //clientCollection.drop();
-        //userCollection.drop();
-        //proposalCollection.drop();
-        //seedUsers();
-        //seedClient();
-        //seedProposals();
+        clientCollection.drop();
+        userCollection.drop();
+        proposalCollection.drop();
+        seedUsers();
+        seedClient();
+        seedProposals();
     }
 }

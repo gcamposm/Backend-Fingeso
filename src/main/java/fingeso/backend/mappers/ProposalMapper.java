@@ -19,6 +19,8 @@ public class ProposalMapper {
         proposal.setUserId(proposalDto.getUserId());
         proposal.setClientId(proposalDto.getClientId());
         proposal.setClientIdStr(proposalDto.getClientIdStr());
+        proposal.setBudget(proposalDto.getBudget());
+        proposal.setTeamSize(proposalDto.getTeamSize());
         proposal.setFiles(proposalDto.getFiles());
         return proposal;
     }
@@ -45,6 +47,8 @@ public class ProposalMapper {
         proposalDto.setClientIdStr(proposal.getClientIdStr());
         proposalDto.setUserId(proposal.getClientId());
         proposalDto.setFiles(proposal.getFiles());
+        proposalDto.setBudget(proposal.getBudget());
+        proposalDto.setTeamSize(proposal.getTeamSize());
         return proposalDto;
     }
 }
