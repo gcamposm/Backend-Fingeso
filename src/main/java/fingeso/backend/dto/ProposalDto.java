@@ -14,6 +14,7 @@ public class ProposalDto {
     private String description;
     private Date created;
     private ObjectId clientId;
+    private String clientIdStr;
     private ObjectId userId;
     private List<String> files;
 }

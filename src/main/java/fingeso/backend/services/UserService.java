@@ -36,6 +36,7 @@ public class UserService {
             User user = userDao.findBy_id(id);
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
+            user.setPassword(userDto.getPassword());
             user.setProposals(userDto.getProposals());
             userDao.save(user);
 

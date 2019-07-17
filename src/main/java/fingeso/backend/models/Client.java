@@ -14,10 +14,10 @@ import java.util.List;
 public class Client {
     @Id
     private ObjectId _id;
+    private String idStr;
     private String name;
     private String company;
     private Integer score;
-    @JsonIgnore
     private List<Proposal> proposals;
 
     public void set_id(ObjectId _id) {

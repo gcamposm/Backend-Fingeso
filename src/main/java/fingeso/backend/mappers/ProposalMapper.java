@@ -18,6 +18,7 @@ public class ProposalMapper {
         proposal.setCreated(proposalDto.getCreated());
         proposal.setUserId(proposalDto.getUserId());
         proposal.setClientId(proposalDto.getClientId());
+        proposal.setClientIdStr(proposalDto.getClientIdStr());
         proposal.setFiles(proposalDto.getFiles());
         return proposal;
     }
@@ -41,6 +42,7 @@ public class ProposalMapper {
         proposalDto.setDescription(proposal.getDescription());
         proposalDto.setCreated(proposal.getCreated());
         proposalDto.setClientId(proposal.getClientId());
+        proposalDto.setClientIdStr(proposal.getClientIdStr());
         proposalDto.setUserId(proposal.getClientId());
         proposalDto.setFiles(proposal.getFiles());
         return proposalDto;

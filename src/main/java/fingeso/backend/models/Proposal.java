@@ -18,6 +18,7 @@ public class Proposal {
     private String description;
     private Date created;
     private ObjectId clientId;
+    private String clientIdStr;
     private ObjectId userId;
     private List<String> files;
 
@@ -83,5 +84,13 @@ public class Proposal {
 
     public void setFiles(List<String> files) {
         this.files = files;
+    }
+
+    public String getClientIdStr() {
+        return clientIdStr;
+    }
+
+    public void setClientIdStr(String clientIdStr) {
+        this.clientIdStr = clientIdStr;
     }
 }

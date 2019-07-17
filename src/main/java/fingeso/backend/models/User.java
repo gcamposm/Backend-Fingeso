@@ -16,6 +16,7 @@ public class User {
   private ObjectId _id;
   private String firstName;
   private String lastName;
+  private String password;
   private List<Proposal> proposals;
 
   public void set_id(ObjectId _id) {
@@ -48,6 +49,14 @@ public class User {
 
   public List<Proposal> getProposals() {
     return proposals;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }
 

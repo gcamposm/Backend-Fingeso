@@ -14,6 +14,7 @@ public class UserMapper {
         User user = new User();
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getFirstName());
+        user.setPassword(userDto.getPassword());
         user.setProposals(userDto.getProposals());
         return user;
     }
@@ -34,6 +35,7 @@ public class UserMapper {
         UserDto userDto = new UserDto();
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getFirstName());
+        userDto.setPassword(userDto.getPassword());
         userDto.setProposals(user.getProposals());
         return userDto;
     }

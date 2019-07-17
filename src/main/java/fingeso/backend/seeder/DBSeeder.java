@@ -36,6 +36,7 @@ public class DBSeeder implements CommandLineRunner {
             List<Proposal> proposalList = new ArrayList<>();
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
+            user.setPassword("secret");
             user.setProposals(proposalList);
             userDao.save(user);
         }
@@ -48,7 +49,10 @@ public class DBSeeder implements CommandLineRunner {
             List<Proposal> proposalList = new ArrayList<>();
             client.setName(faker.name().name());
             client.setCompany(faker.company().name());
+            client.setScore(5);
             client.setProposals(proposalList);
+            clientDao.save(client);
+            client.setIdStr(client.get_id().toHexString());
             clientDao.save(client);
         }
     }
@@ -63,6 +67,7 @@ public class DBSeeder implements CommandLineRunner {
             Client client = clientList.get(random.nextInt(clientList.size() - 1));
             User user = userList.get(random.nextInt(userList.size() - 1));
             proposal.setClientId(client.get_id());
+            proposal.setClientIdStr(client.get_id().toHexString());
             proposal.setCreated(faker.date().birthday());
             proposal.setUserId(user.get_id());
             proposal.setDescription(faker.expression("descripcion"));
@@ -92,8 +97,8 @@ public class DBSeeder implements CommandLineRunner {
         //clientCollection.drop();
         //userCollection.drop();
         //proposalCollection.drop();
-        //seedProposals();
         //seedUsers();
         //seedClient();
+        //seedProposals();
     }
 }

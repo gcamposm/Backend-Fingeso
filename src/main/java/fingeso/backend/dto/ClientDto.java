@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class ClientDto {
     private ObjectId _id;
+    private String idStr;
     private String name;
     private String company;
     private Integer score;

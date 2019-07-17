@@ -44,6 +44,7 @@ public class ProposalService {
             proposalFinded.setCreated(proposalDto.getCreated());
             proposalFinded.setClientId(proposalDto.getClientId());
             proposalFinded.setUserId(proposalDto.getUserId());
+            proposalFinded.setClientIdStr(proposalDto.getClientIdStr());
             proposalDao.save(proposalFinded);
 
         }
@@ -65,6 +66,7 @@ public class ProposalService {
         proposal.setIdStr(id.toHexString());
         proposal.setDescription("");
         proposal.setName("");
+        proposal.setClientIdStr("");
         proposal.setFiles(new ArrayList<>());
         proposal.setUserId(null);
         proposal.setClientId(null);
