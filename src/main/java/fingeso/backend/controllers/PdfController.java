@@ -164,4 +164,9 @@ public class PdfController {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public ResponseEntity<String> prueba(@RequestParam("array") List<String> array) throws IOException {
+        System.out.println(array);
+        return ResponseEntity.ok("ready");
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Document(collection = "proposals")
@@ -14,6 +15,6 @@ public class TraceProposal {
     private ObjectId _id;
     private String commentary;
     private Date time;
-    private String changes;
+    private List<Integer> changes;
     private Proposal proposal;
 }
