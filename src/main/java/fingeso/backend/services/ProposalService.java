@@ -7,9 +7,6 @@ import fingeso.backend.models.Proposal;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +42,8 @@ public class ProposalService {
             proposalFinded.setClientId(proposalDto.getClientId());
             proposalFinded.setUserId(proposalDto.getUserId());
             proposalFinded.setClientIdStr(proposalDto.getClientIdStr());
+            proposalFinded.setBudget(proposalDto.getBudget());
+            proposalFinded.setTeamSize(proposalDto.getTeamSize());
             proposalDao.save(proposalFinded);
 
         }
@@ -71,6 +70,8 @@ public class ProposalService {
         proposal.setUserId(null);
         proposal.setClientId(null);
         proposal.setCreated(now);
+        proposal.setTeamSize(0);
+        proposal.setBudget(0);
         return proposalDao.save(proposal);
     }
 }

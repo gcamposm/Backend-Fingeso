@@ -1,7 +1,5 @@
 package fingeso.backend.controllers;
 
-import fingeso.backend.dto.ProposalDto;
-import fingeso.backend.mappers.ProposalMapper;
 import fingeso.backend.models.Proposal;
 import fingeso.backend.dao.ProposalDao;
 import fingeso.backend.services.ProposalService;
@@ -10,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 

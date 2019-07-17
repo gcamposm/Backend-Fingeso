@@ -16,5 +16,7 @@ public class ProposalDto {
     private ObjectId clientId;
     private String clientIdStr;
     private ObjectId userId;
+    private Integer budget;
+    private Integer teamSize;
     private List<String> files;
 }

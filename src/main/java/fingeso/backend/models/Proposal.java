@@ -20,6 +20,8 @@ public class Proposal {
     private ObjectId clientId;
     private String clientIdStr;
     private ObjectId userId;
+    private Integer budget;
+    private Integer teamSize;
     private List<String> files;
 
     public ObjectId get_id() {
@@ -92,5 +94,21 @@ public class Proposal {
 
     public void setClientIdStr(String clientIdStr) {
         this.clientIdStr = clientIdStr;
+    }
+
+    public Integer getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Integer budget) {
+        this.budget = budget;
+    }
+
+    public Integer getTeamSize() {
+        return teamSize;
+    }
+
+    public void setTeamSize(Integer teamSize) {
+        this.teamSize = teamSize;
     }
 }

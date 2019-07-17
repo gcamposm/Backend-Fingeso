@@ -51,22 +51,15 @@ public class UserController {
     userDao.delete(userDao.findBy_id(id));
   }
 
-  @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<Object> login(@RequestParam("user") String name, @RequestParam("pass") String pass) throws IOException {
+  @RequestMapping(value = "/login", method = RequestMethod.PUT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<User> login(@RequestParam("user") String name, @RequestParam("pass") String pass) throws IOException {
     List<User> users = userDao.findAll();
     for (User user : users
     ) {
-      if (!user.getFirstName().equalsIgnoreCase(name)) {
-        users.remove(user);
-      }
-      if (!user.getPassword().equalsIgnoreCase(pass)) {
-        users.remove(user);
+      if (user.getFirstName().equalsIgnoreCase(name) && user.getPassword().equalsIgnoreCase(pass)) {
+        return ResponseEntity.ok(user);
       }
     }
-    if (users.size() == 1) {
-      return ResponseEntity.ok(users.get(0));
-    } else {
       return ResponseEntity.badRequest().build();
-    }
   }
 }
