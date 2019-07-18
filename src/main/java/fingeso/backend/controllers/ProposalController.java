@@ -38,30 +38,45 @@ public class ProposalController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> updateProposal(@RequestParam("proposalId") String proposalId, @RequestParam("name") String name, @RequestParam("description") String description) throws IOException
+    public ResponseEntity<Object> updateProposal(@RequestParam("proposalId") String proposalId, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("files") List<String> files) throws IOException
     {
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         List<Integer> changes = new ArrayList<>();
         if(proposal.getName().equalsIgnoreCase(name))
         {
-            changes.add(1);
+            changes.add(0);
         }
         else{
-            changes.add(0);
+            changes.add(1);
             proposal.setName(name);
         }
         if(proposal.getDescription().equalsIgnoreCase(description))
         {
-            changes.add(1);
+            changes.add(0);
         }
         else{
-            changes.add(0);
+            changes.add(1);
             proposal.setDescription(description);
         }
         changes.add(0);
         changes.add(0);
         changes.add(0);
-        changes.add(0);
+        if(proposal.getFiles().containsAll(files))
+        {
+            changes.add(0);
+        }
+        else {
+            changes.add(1);
+            if (proposal.getFiles().size() > files.size()) {
+                for (String file : proposal.getFiles()
+                ) {
+                    if (!files.contains(file)) {
+                        //ELIMINAR ARCHIVO
+                    }
+                }
+            }
+            proposal.setFiles(files);
+        }
         traceProposalService.createTrace(changes, proposal);
         return ResponseEntity.ok(proposalDao.save(proposal));
     }
