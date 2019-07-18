@@ -27,14 +27,14 @@ public class SaveFileController {
         //EN EL SERVER
         String relativeWebPath = "WEB-INF/classes/static";
         String serverPath = context.getRealPath(relativeWebPath);
-        //LOC
+        //LOCAL
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
 
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
-        String nameFile = "/" + proposalId+ "_" + numberFile.toString() + ".pdf";
-        File convertFile = new File(serverPath + nameFile);
+        String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
+        File convertFile = new File(serverPath + "/" + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         System.out.println(convertFile);
         fout.write(file.getBytes());
