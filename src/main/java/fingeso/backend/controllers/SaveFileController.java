@@ -51,6 +51,6 @@ public class SaveFileController {
         String serverPath = context.getRealPath(absoluteFilePath);
         System.out.println(serverPath);
         //return ResponseEntity.ok(absoluteFilePath);
-        return ResponseEntity.ok(absoluteFilePath);
+        return ResponseEntity.ok(serverPath);
     }
 }
