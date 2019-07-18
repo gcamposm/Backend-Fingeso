@@ -1,5 +1,6 @@
 package fingeso.backend.controllers;
 
+import fingeso.backend.dao.UserDao;
 import fingeso.backend.models.Proposal;
 import fingeso.backend.dao.ProposalDao;
 import fingeso.backend.models.TraceProposal;
@@ -20,6 +21,9 @@ import java.util.List;
 public class ProposalController {
     @Autowired
     private ProposalDao proposalDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private ProposalService proposalService;
@@ -58,14 +62,8 @@ public class ProposalController {
             changes.add(1);
             proposal.setDescription(description);
         }
-        if(proposal.getUserId().toHexString().equalsIgnoreCase(user))
-        {
-            changes.add(0);
-        }
-        else{
-            changes.add(1);
-            proposal.setName(name);
-        }
+        proposal.setUserId(userDao.findUserByIdStr(user).get_id());
+        changes.add(0);
         changes.add(0);
         changes.add(0);
         if(proposal.getFiles().containsAll(files))
