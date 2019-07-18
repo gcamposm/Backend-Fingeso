@@ -45,12 +45,9 @@ public class SaveFileController {
         //return ResponseEntity.ok(serverPath);
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
+    public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName) throws IOException
     {
-        String absoluteFilePath = proposalId + "/static/" + fileName;
-        String serverPath = context.getRealPath(absoluteFilePath);
-        System.out.println(serverPath);
-        //return ResponseEntity.ok(absoluteFilePath);
-        return ResponseEntity.ok(serverPath);
+        String absoluteFilePath = "/static/" + fileName;
+        return ResponseEntity.ok(absoluteFilePath);
     }
 }
