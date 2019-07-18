@@ -34,7 +34,7 @@ public class SaveFileController {
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
-        File convertFile = new File(serverPath + nameFile);
+        File convertFile = new File(serverPath + "/" + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
