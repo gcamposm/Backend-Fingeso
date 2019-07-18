@@ -22,10 +22,10 @@ public class SaveFileController {
     private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId, @RequestParam("absoluteFilePath") String absoluteFilePath) throws IOException
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId, @RequestParam("absoluteFilePath") String absoluteFilePath) throws IOException
     {
         //String relativeWebPath = "WEB-INF/classes/static";
-        //String serverPath = context.getRealPath(relativeWebPath);
+        String serverPath = context.getRealPath(absoluteFilePath);
         //System.out.println(serverPath);
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
@@ -34,7 +34,7 @@ public class SaveFileController {
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
-        File convertFile = new File(absoluteFilePath + nameFile);
+        File convertFile = new File(serverPath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
@@ -42,7 +42,7 @@ public class SaveFileController {
         files.add(nameFile);
         proposal.setFiles(files);
         //return proposalDao.save(proposal);
-        return absoluteFilePath;
+        return ResponseEntity.ok(serverPath);
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
