@@ -25,7 +25,7 @@ public class SaveFileController {
     public ResponseEntity<Proposal> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
         //EN EL SERVER
-        String relativeWebPath = "WEB-INF/classes/static";
+        String relativeWebPath = "WEB-INF/classes/static/";
         String serverPath = context.getRealPath(relativeWebPath);
         //LOC
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
