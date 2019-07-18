@@ -41,7 +41,7 @@ public class SaveFileController {
         List<String> files = proposal.getFiles();
         files.add(nameFile);
         proposal.setFiles(files);
-        return proposalDao.save(proposal);
+        return ResponseEntity.ok(proposalDao.save(proposal));
         //return ResponseEntity.ok(serverPath);
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
