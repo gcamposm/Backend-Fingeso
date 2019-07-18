@@ -2,13 +2,16 @@ package fingeso.backend.controllers;
 
 import fingeso.backend.models.Proposal;
 import fingeso.backend.dao.ProposalDao;
+import fingeso.backend.models.TraceProposal;
 import fingeso.backend.services.ProposalService;
+import fingeso.backend.services.TraceProposalService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -20,6 +23,9 @@ public class ProposalController {
 
     @Autowired
     private ProposalService proposalService;
+
+    @Autowired
+    private TraceProposalService traceProposalService;
 
     @GetMapping("/")
     public List<Proposal> getAllProposals() {
@@ -35,8 +41,28 @@ public class ProposalController {
     public ResponseEntity<Object> updateProposal(@RequestParam("proposalId") String proposalId, @RequestParam("name") String name, @RequestParam("description") String description) throws IOException
     {
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
-        proposal.setName(name);
-        proposal.setDescription(description);
+        List<Integer> changes = new ArrayList<>();
+        if(proposal.getName().equalsIgnoreCase(name))
+        {
+            changes.add(1);
+        }
+        else{
+            changes.add(0);
+            proposal.setName(name);
+        }
+        if(proposal.getDescription().equalsIgnoreCase(description))
+        {
+            changes.add(1);
+        }
+        else{
+            changes.add(0);
+            proposal.setDescription(description);
+        }
+        changes.add(0);
+        changes.add(0);
+        changes.add(0);
+        changes.add(0);
+        traceProposalService.createTrace(changes, proposal);
         return ResponseEntity.ok(proposalDao.save(proposal));
     }
 

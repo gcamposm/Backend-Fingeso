@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Document(collection = "proposals")
+@Document(collection = "traceproposals")
 public class TraceProposal {
     @Id
     private ObjectId _id;
@@ -17,4 +17,5 @@ public class TraceProposal {
     private Date time;
     private List<Integer> changes;
     private Proposal proposal;
+    private User user;
 }
