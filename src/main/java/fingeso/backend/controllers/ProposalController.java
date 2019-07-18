@@ -62,7 +62,7 @@ public class ProposalController {
             changes.add(1);
             proposal.setDescription(description);
         }
-        proposal.setUserId(userDao.findUserByIdStr(user).get_id());
+        //proposal.setUserId(userDao.findUserByIdStr(user).get_id());
         changes.add(0);
         changes.add(0);
         changes.add(0);
