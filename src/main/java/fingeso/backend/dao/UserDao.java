@@ -9,4 +9,5 @@ public interface UserDao extends MongoRepository<User, ObjectId> {
     User findBy_id(ObjectId _id);
     User findUserByIdStr(String id);
     Boolean existsBy_id(ObjectId _id);
+    Boolean existsByIdStr(String id);
 }

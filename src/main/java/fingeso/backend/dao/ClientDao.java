@@ -8,4 +8,5 @@ public interface ClientDao extends MongoRepository<Client, ObjectId> {
     Client findBy_id(ObjectId _id);
     Client findClientByIdStr(String id);
     Boolean existsBy_id(ObjectId _id);
+    Boolean existsByIdStr(String id);
 }

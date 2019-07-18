@@ -41,9 +41,18 @@ public class PdfController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<String> generatePdf(@RequestParam("proposalId") String proposalId) throws IOException {
         //System.out.println(proposalId);
-        Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
-        Client client = clientDao.findBy_id(proposal.getClientId());
-        User user = userDao.findBy_id(proposal.getUserId());
+        Proposal proposal = null;
+        Client client = null;
+        User user = null;
+        if(proposalDao.existsByIdStr(proposalId)) {
+            proposal = proposalDao.findProposalByIdStr(proposalId);
+            if (clientDao.existsBy_id(proposal.getClientId())) {
+                client = clientDao.findBy_id(proposal.getClientId());
+            }
+            if (userDao.existsBy_id(proposal.getUserId())) {
+                user = userDao.findBy_id(proposal.getUserId());
+            }
+        }
         String absoluteFilePath = "../Symbiose-Front/public/static/";
         String fileName = "generatedPdf_" + proposalId + ".pdf";
         File convertFile = new File(absoluteFilePath + fileName);
