@@ -37,8 +37,8 @@ public class ProposalController {
     }
 
     @GetMapping("/{id}")
-    public Proposal getProposalById(@PathVariable("id") ObjectId id) {
-        return proposalDao.findBy_id(id);
+    public Proposal getProposalById(@PathVariable("id") String id) {
+        return proposalDao.findProposalByIdStr(id);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

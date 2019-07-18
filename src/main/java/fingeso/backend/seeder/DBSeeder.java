@@ -35,12 +35,15 @@ public class DBSeeder implements CommandLineRunner {
     private TraceProposalDao traceProposalDao;
 
     public void seedUsers(){
+
+        List<Proposal> proposalList = new ArrayList<>();
+        List<Integer> admin = new ArrayList<>();
+        admin.add(0);
+        admin.add(1);
         Random random = new Random();
         Faker faker = new Faker();
         for(int i = 0; i< 29; i++){
             User user = new User();
-            List<Proposal> proposalList = new ArrayList<>();
-            List<Integer> admin = new ArrayList<>();
             admin.add(0);
             admin.add(1);
             user.setFirstName(faker.name().firstName());
@@ -53,10 +56,6 @@ public class DBSeeder implements CommandLineRunner {
             userDao.save(user);
         }
         User user = new User();
-        List<Proposal> proposalList = new ArrayList<>();
-        List<Integer> admin = new ArrayList<>();
-        admin.add(0);
-        admin.add(1);
         user.setFirstName("admin");
         user.setLastName(faker.name().lastName());
         user.setPassword("secret");
@@ -65,6 +64,24 @@ public class DBSeeder implements CommandLineRunner {
         userDao.save(user);
         user.setIdStr(user.get_id().toHexString());
         userDao.save(user);
+        User scar = new User();
+        scar.setFirstName("Scarlett");
+        scar.setLastName(faker.name().lastName());
+        scar.setPassword("guillehermoso");
+        scar.setProposals(proposalList);
+        scar.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
+        userDao.save(scar);
+        scar.setIdStr(user.get_id().toHexString());
+        userDao.save(scar);
+        User jose = new User();
+        jose.setFirstName("Jose");
+        jose.setLastName(faker.name().lastName());
+        jose.setPassword("motorola13");
+        jose.setProposals(proposalList);
+        jose.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
+        userDao.save(jose);
+        jose.setIdStr(jose.get_id().toHexString());
+        userDao.save(jose);
 
     }
 
