@@ -37,7 +37,7 @@ public class DBSeeder implements CommandLineRunner {
     public void seedUsers(){
         Random random = new Random();
         Faker faker = new Faker();
-        for(int i = 0; i< 30; i++){
+        for(int i = 0; i< 29; i++){
             User user = new User();
             List<Proposal> proposalList = new ArrayList<>();
             List<Integer> admin = new ArrayList<>();
@@ -45,11 +45,22 @@ public class DBSeeder implements CommandLineRunner {
             admin.add(1);
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
-            user.setPassword("secret");
+            user.setPassword(faker.name().lastName());
             user.setProposals(proposalList);
             user.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
             userDao.save(user);
         }
+        User user = new User();
+        List<Proposal> proposalList = new ArrayList<>();
+        List<Integer> admin = new ArrayList<>();
+        admin.add(0);
+        admin.add(1);
+        user.setFirstName("admin");
+        user.setLastName(faker.name().lastName());
+        user.setPassword("secret");
+        user.setProposals(proposalList);
+        user.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
+        userDao.save(user);
     }
 
     public void seedClient(){
@@ -132,13 +143,13 @@ public class DBSeeder implements CommandLineRunner {
         MongoCollection clientCollection = db.getCollection("clients");
         MongoCollection userCollection = db.getCollection("users");
         MongoCollection traceProposalCollection = db.getCollection("traceproposals");
-        //traceProposalCollection.drop();
-        //clientCollection.drop();
-        //userCollection.drop();
-        //proposalCollection.drop();
-        //seedUsers();
-        //seedClient();
-        //seedProposals();
-        //seedTraces();
+        traceProposalCollection.drop();
+        clientCollection.drop();
+        userCollection.drop();
+        proposalCollection.drop();
+        seedUsers();
+        seedClient();
+        seedProposals();
+        seedTraces();
     }
 }
