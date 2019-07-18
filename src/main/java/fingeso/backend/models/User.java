@@ -14,6 +14,7 @@ public class User {
 
   @Id
   private ObjectId _id;
+  private String idStr;
   private String firstName;
   private String lastName;
   private String password;
@@ -66,6 +67,14 @@ public class User {
 
   public void setIsAdmin(Integer isAdmin) {
     this.isAdmin = isAdmin;
+  }
+
+  public String getIdStr() {
+    return idStr;
+  }
+
+  public void setIdStr(String idStr) {
+    this.idStr = idStr;
   }
 }
 

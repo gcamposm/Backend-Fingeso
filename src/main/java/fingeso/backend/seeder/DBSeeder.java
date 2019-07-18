@@ -61,6 +61,9 @@ public class DBSeeder implements CommandLineRunner {
         user.setProposals(proposalList);
         user.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
         userDao.save(user);
+        user.setIdStr(user.get_id().toHexString());
+        userDao.save(user);
+
     }
 
     public void seedClient(){

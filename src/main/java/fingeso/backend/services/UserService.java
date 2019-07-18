@@ -34,6 +34,7 @@ public class UserService {
     public void updateUser(UserDto userDto, ObjectId id){
         if(userDao.existsBy_id(id)){
             User user = userDao.findBy_id(id);
+            user.setIdStr(userDto.getIdStr());
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setPassword(userDto.getPassword());

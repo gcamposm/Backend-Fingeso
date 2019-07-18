@@ -38,7 +38,7 @@ public class ProposalController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> updateProposal(@RequestParam("proposalId") String proposalId, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("files") List<String> files) throws IOException
+    public ResponseEntity<Object> updateProposal(@RequestParam("proposalId") String proposalId, @RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("files") List<String> files, @RequestParam("user") String user) throws IOException
     {
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         List<Integer> changes = new ArrayList<>();
@@ -58,7 +58,14 @@ public class ProposalController {
             changes.add(1);
             proposal.setDescription(description);
         }
-        changes.add(0);
+        if(proposal.getUserId().toHexString().equalsIgnoreCase(user))
+        {
+            changes.add(0);
+        }
+        else{
+            changes.add(1);
+            proposal.setName(name);
+        }
         changes.add(0);
         changes.add(0);
         if(proposal.getFiles().containsAll(files))
@@ -82,9 +89,9 @@ public class ProposalController {
     }
 
     @GetMapping("/create")
-    public String createProposal() {
+    public Proposal createProposal() {
         Proposal proposal = proposalService.createProposal();
-        return proposal.getIdStr();
+        return proposal;
     }
 
     @DeleteMapping("/{id}")

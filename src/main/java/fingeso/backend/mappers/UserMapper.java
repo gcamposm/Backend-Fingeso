@@ -12,6 +12,7 @@ public class UserMapper {
     public User mapToModel(UserDto userDto){
 
         User user = new User();
+        user.setIdStr(userDto.getIdStr());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getFirstName());
         user.setPassword(userDto.getPassword());
@@ -35,6 +36,7 @@ public class UserMapper {
 
         UserDto userDto = new UserDto();
         userDto.setFirstName(user.getFirstName());
+        userDto.setIdStr(user.getIdStr());
         userDto.setLastName(user.getFirstName());
         userDto.setPassword(userDto.getPassword());
         userDto.setProposals(user.getProposals());
