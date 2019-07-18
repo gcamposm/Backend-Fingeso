@@ -22,14 +22,14 @@ public class SaveFileController {
     private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId, @RequestParam("absoluteFilePath") String absoluteFilePath) throws IOException
     {
         //String relativeWebPath = "WEB-INF/classes/static";
         //String serverPath = context.getRealPath(relativeWebPath);
         //System.out.println(serverPath);
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
-        String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
+        //String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
         //String serverPath = context.getRealPath(absoluteFilePath);
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
