@@ -38,6 +38,7 @@ public class UserService {
             user.setLastName(userDto.getLastName());
             user.setPassword(userDto.getPassword());
             user.setProposals(userDto.getProposals());
+            user.setIsAdmin(userDto.getIsAdmin());
             userDao.save(user);
 
         }

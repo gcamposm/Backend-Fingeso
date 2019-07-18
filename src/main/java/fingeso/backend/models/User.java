@@ -17,6 +17,7 @@ public class User {
   private String firstName;
   private String lastName;
   private String password;
+  private Integer isAdmin;
   private List<Proposal> proposals;
 
   public void set_id(ObjectId _id) {
@@ -57,6 +58,14 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Integer getIsAdmin() {
+    return isAdmin;
+  }
+
+  public void setIsAdmin(Integer isAdmin) {
+    this.isAdmin = isAdmin;
   }
 }
 

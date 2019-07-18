@@ -16,6 +16,7 @@ public class UserMapper {
         user.setLastName(userDto.getFirstName());
         user.setPassword(userDto.getPassword());
         user.setProposals(userDto.getProposals());
+        user.setIsAdmin(userDto.getIsAdmin());
         return user;
     }
 
@@ -37,6 +38,7 @@ public class UserMapper {
         userDto.setLastName(user.getFirstName());
         userDto.setPassword(userDto.getPassword());
         userDto.setProposals(user.getProposals());
+        userDto.setIsAdmin(user.getIsAdmin());
         return userDto;
     }
 }

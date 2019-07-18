@@ -30,14 +30,19 @@ public class DBSeeder implements CommandLineRunner {
     private ClientDao clientDao;
 
     public void seedUsers(){
+        Random random = new Random();
         Faker faker = new Faker();
         for(int i = 0; i< 30; i++){
             User user = new User();
             List<Proposal> proposalList = new ArrayList<>();
+            List<Integer> admin = new ArrayList<>();
+            admin.add(0);
+            admin.add(1);
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
             user.setPassword("secret");
             user.setProposals(proposalList);
+            user.setIsAdmin(admin.get(random.nextInt(admin.size() - 1)));
             userDao.save(user);
         }
     }
