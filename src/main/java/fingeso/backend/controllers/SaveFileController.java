@@ -22,10 +22,10 @@ public class SaveFileController {
     private ProposalDao proposalDao;
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId, @RequestParam("absoluteFilePath") String absoluteFilePath) throws IOException
+    public ResponseEntity<Proposal> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
-        //String relativeWebPath = "WEB-INF/classes/static";
-        String serverPath = context.getRealPath(absoluteFilePath);
+        String relativeWebPath = "WEB-INF/classes/static";
+        String serverPath = context.getRealPath(relativeWebPath);
         //System.out.println(serverPath);
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
@@ -41,8 +41,8 @@ public class SaveFileController {
         List<String> files = proposal.getFiles();
         files.add(nameFile);
         proposal.setFiles(files);
-        //return proposalDao.save(proposal);
-        return ResponseEntity.ok(serverPath);
+        return proposalDao.save(proposal);
+        //return ResponseEntity.ok(serverPath);
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
