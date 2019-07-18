@@ -30,11 +30,11 @@ public class SaveFileController {
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
         //String absoluteFilePath = "src/main/resources/static/";
         String absoluteFilePath = "../../../../var/www/Symbiose-Front/static/";
-        String serverPath = context.getRealPath(absoluteFilePath);
+        //String serverPath = context.getRealPath(absoluteFilePath);
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
         String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
-        File convertFile = new File(serverPath + nameFile);
+        File convertFile = new File(absoluteFilePath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         fout.write(file.getBytes());
         fout.close();
@@ -42,7 +42,7 @@ public class SaveFileController {
         files.add(nameFile);
         proposal.setFiles(files);
         //return proposalDao.save(proposal);
-        return serverPath;
+        return absoluteFilePath;
     }
     @RequestMapping(value = "/getfile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> downloadFile(@RequestParam("fileName") String fileName, @RequestParam("proposalId") String proposalId) throws IOException
