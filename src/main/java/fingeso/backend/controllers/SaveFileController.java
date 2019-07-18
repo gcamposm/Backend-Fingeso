@@ -25,7 +25,7 @@ public class SaveFileController {
     public ResponseEntity<Proposal> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("proposalId") String proposalId) throws IOException
     {
         //EN EL SERVER
-        String relativeWebPath = "WEB-INF/classes/static/persistence.txt";
+        String relativeWebPath = "WEB-INF/classes/static";
         String serverPath = context.getRealPath(relativeWebPath);
         //LOC
         //String absoluteFilePath = "../Symbiose-Front/public/static/";
@@ -33,7 +33,7 @@ public class SaveFileController {
 
         Proposal proposal = proposalDao.findProposalByIdStr(proposalId);
         Integer numberFile = proposal.getFiles().size();
-        String nameFile = proposalId+ "_" + numberFile.toString() + ".pdf";
+        String nameFile = "/" + proposalId+ "_" + numberFile.toString() + ".pdf";
         File convertFile = new File(serverPath + nameFile);
         FileOutputStream fout = new FileOutputStream(convertFile);
         System.out.println(convertFile);
